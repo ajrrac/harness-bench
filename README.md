@@ -1,5 +1,7 @@
 # harness-bench
 
+**Leaderboard:** https://ajrrac.github.io/harness-bench/
+
 A small, fixed benchmark for comparing coding-agent harnesses. It runs the 10 hardest tasks from
 [Terminal-Bench 2.0](https://github.com/harbor-framework/terminal-bench-2), 3 times each, with
 [Harbor](https://github.com/harbor-framework/harbor). Everyone runs the same tasks at the same pinned
@@ -60,6 +62,18 @@ pass rate, per-task passes out of 3, tokens, cost, and wall time. To compare:
 python3 summarize.py --compare results/harness-a-*.json results/harness-b-*.json
 ```
 Open a PR with your result JSON to share it. Only commit the JSON, never `jobs/` (logs can contain secrets).
+
+## Submit results
+1. Run the bench (`bash run.sh ...`) with 3 runs per task. It writes `results/<label>-<date>.json`.
+2. Check it: `pip install jsonschema && python3 scripts/validate_results.py`.
+3. Open a pull request that adds only your `results/*.json` file. Do not commit `jobs/` or logs.
+4. CI checks the file against `results/schema.json` and the pinned dataset commit.
+   After merge, the leaderboard rebuilds automatically.
+
+To preview the page locally: `python3 scripts/build_site.py`, then open `_site/index.html`.
+
+**Example data:** `results/EXAMPLE-*.json` are made-up placeholders so the page has something to show.
+They are labeled EXAMPLE on the page. Delete them once real results land.
 
 ## Caveats
 - **Contamination.** These tasks are public and can end up in model training data. Scores lose meaning over time.
