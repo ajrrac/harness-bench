@@ -1,0 +1,142 @@
+{
+  "bench_version": "1.0",
+  "example": true,
+  "label": "example-perfect",
+  "agent": "example-agent",
+  "model": "example/model",
+  "harness_commit": "0000000",
+  "dataset_commit": "2fd12b88aafdd04a52c298e3940bcb189f9766d6",
+  "harbor_version": "0.24.0",
+  "date": "2026-10-12",
+  "runs": [
+    {
+      "task_id": "fix-ocaml-gc",
+      "trial": "fix-ocaml-gc__ex0",
+      "reward": 1.0,
+      "error": null,
+      "input_tokens": 400000,
+      "cache_tokens": null,
+      "output_tokens": 15000,
+      "cost_usd": 1.25,
+      "wall_sec": 900.0
+    },
+    {
+      "task_id": "regex-chess",
+      "trial": "regex-chess__ex0",
+      "reward": 1.0,
+      "error": null,
+      "input_tokens": 400000,
+      "cache_tokens": null,
+      "output_tokens": 15000,
+      "cost_usd": 1.25,
+      "wall_sec": 900.0
+    },
+    {
+      "task_id": "write-compressor",
+      "trial": "write-compressor__ex0",
+      "reward": 1.0,
+      "error": null,
+      "input_tokens": 400000,
+      "cache_tokens": null,
+      "output_tokens": 15000,
+      "cost_usd": 1.25,
+      "wall_sec": 900.0
+    },
+    {
+      "task_id": "circuit-fibsqrt",
+      "trial": "circuit-fibsqrt__ex0",
+      "reward": 1.0,
+      "error": null,
+      "input_tokens": 400000,
+      "cache_tokens": null,
+      "output_tokens": 15000,
+      "cost_usd": 1.25,
+      "wall_sec": 900.0
+    },
+    {
+      "task_id": "feal-linear-cryptanalysis",
+      "trial": "feal-linear-cryptanalysis__ex0",
+      "reward": 1.0,
+      "error": null,
+      "input_tokens": 400000,
+      "cache_tokens": null,
+      "output_tokens": 15000,
+      "cost_usd": 1.25,
+      "wall_sec": 900.0
+    },
+    {
+      "task_id": "sparql-university",
+      "trial": "sparql-university__ex0",
+      "reward": 1.0,
+      "error": null,
+      "input_tokens": 400000,
+      "cache_tokens": null,
+      "output_tokens": 15000,
+      "cost_usd": 1.25,
+      "wall_sec": 900.0
+    },
+    {
+      "task_id": "sam-cell-seg",
+      "trial": "sam-cell-seg__ex0",
+      "reward": 1.0,
+      "error": null,
+      "input_tokens": 400000,
+      "cache_tokens": null,
+      "output_tokens": 15000,
+      "cost_usd": 1.25,
+      "wall_sec": 900.0
+    },
+    {
+      "task_id": "make-doom-for-mips",
+      "trial": "make-doom-for-mips__ex0",
+      "reward": 1.0,
+      "error": null,
+      "input_tokens": 400000,
+      "cache_tokens": null,
+      "output_tokens": 15000,
+      "cost_usd": 1.25,
+      "wall_sec": 900.0
+    },
+    {
+      "task_id": "make-mips-interpreter",
+      "trial": "make-mips-interpreter__ex0",
+      "reward": 1.0,
+      "error": null,
+      "input_tokens": 400000,
+      "cache_tokens": null,
+      "output_tokens": 15000,
+      "cost_usd": 1.25,
+      "wall_sec": 900.0
+    },
+    {
+      "task_id": "feal-differential-cryptanalysis",
+      "trial": "feal-differential-cryptanalysis__ex0",
+      "reward": 1.0,
+      "error": null,
+      "input_tokens": 400000,
+      "cache_tokens": null,
+      "output_tokens": 15000,
+      "cost_usd": 1.25,
+      "wall_sec": 900.0
+    }
+  ],
+  "summary": {
+    "pass_rate": 1.0,
+    "per_task": {
+      "fix-ocaml-gc": "1/1",
+      "regex-chess": "1/1",
+      "write-compressor": "1/1",
+      "circuit-fibsqrt": "1/1",
+      "feal-linear-cryptanalysis": "1/1",
+      "sparql-university": "1/1",
+      "sam-cell-seg": "1/1",
+      "make-doom-for-mips": "1/1",
+      "make-mips-interpreter": "1/1",
+      "feal-differential-cryptanalysis": "1/1"
+    },
+    "total_input_tokens": 4000000,
+    "total_output_tokens": 150000,
+    "total_cost_usd": 12.5,
+    "total_wall_sec": 9000.0
+  }
+}
