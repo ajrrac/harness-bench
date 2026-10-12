@@ -2,27 +2,141 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "harness-bench result",
   "type": "object",
-  "required": ["bench_version","label","model","dataset_commit","harbor_version","runs","summary"],
+  "required": [
+    "bench_version",
+    "label",
+    "model",
+    "dataset_commit",
+    "harbor_version",
+    "runs",
+    "summary"
+  ],
   "properties": {
-    "bench_version": {"type": "string"},
-    "label": {"type": "string", "description": "harness name you are comparing"},
-    "model": {"type": "string"},
-    "harness_commit": {"type": ["string","null"]},
-    "dataset_commit": {"type": "string"},
-    "harbor_version": {"type": "string"},
-    "date": {"type": "string"},
-    "runs": {"type": "array", "items": {"type": "object",
-      "required": ["task_id","trial","reward"],
+    "bench_version": {
+      "type": "string"
+    },
+    "label": {
+      "type": "string",
+      "description": "harness name you are comparing"
+    },
+    "model": {
+      "type": "string"
+    },
+    "harness_commit": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "dataset_commit": {
+      "type": "string"
+    },
+    "harbor_version": {
+      "type": "string"
+    },
+    "date": {
+      "type": "string"
+    },
+    "runs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "task_id",
+          "trial",
+          "reward"
+        ],
+        "properties": {
+          "task_id": {
+            "type": "string"
+          },
+          "trial": {
+            "type": "string"
+          },
+          "reward": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "error": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "input_tokens": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "cache_tokens": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "output_tokens": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "cost_usd": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "wall_sec": {
+            "type": [
+              "number",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
       "properties": {
-        "task_id": {"type": "string"}, "trial": {"type": "string"},
-        "reward": {"type": ["number","null"]},
-        "error": {"type": ["string","null"]},
-        "input_tokens": {"type": ["integer","null"]}, "cache_tokens": {"type": ["integer","null"]},
-        "output_tokens": {"type": ["integer","null"]}, "cost_usd": {"type": ["number","null"]},
-        "wall_sec": {"type": ["number","null"]}}}},
-    "summary": {"type": "object", "properties": {
-      "pass_rate": {"type": "number"}, "per_task": {"type": "object"},
-      "total_input_tokens": {"type": "integer"}, "total_output_tokens": {"type": "integer"},
-      "total_cost_usd": {"type": "number"}, "total_wall_sec": {"type": "number"}}}
-  }
+        "pass_rate": {
+          "type": "number"
+        },
+        "per_task": {
+          "type": "object"
+        },
+        "total_input_tokens": {
+          "type": "integer"
+        },
+        "total_output_tokens": {
+          "type": "integer"
+        },
+        "total_cost_usd": {
+          "type": "number"
+        },
+        "total_wall_sec": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "pass_rate",
+        "per_task",
+        "total_cost_usd"
+      ]
+    },
+    "agent": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Harbor agent name or import path"
+    },
+    "example": {
+      "type": "boolean",
+      "description": "true only for placeholder demo data"
+    }
+  },
+  "additionalProperties": false
 }

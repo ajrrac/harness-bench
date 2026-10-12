@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>harness-bench leaderboard</title>
+<style>
+:root{--bg:#0d1117;--panel:#161b22;--line:#30363d;--text:#e6edf3;--mute:#8b949e;--acc:#58a6ff;--ok:#3fb950;--warn:#d29922}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 20px 60px}
+h1{margin:0 0 4px;font-size:26px}h2{font-size:17px;margin:34px 0 10px}
+.sub{color:var(--mute)}a{color:var(--acc);text-decoration:none}a:hover{text-decoration:underline}
+.banner{background:#3b2e00;border:1px solid var(--warn);color:#f8e3a1;padding:10px 14px;border-radius:8px;margin:18px 0;font-weight:600}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:auto}
+table{border-collapse:collapse;width:100%}th,td{padding:9px 12px;text-align:left;white-space:nowrap;border-bottom:1px solid var(--line)}
+th{color:var(--mute);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.04em}tr:last-child td{border-bottom:0}
+td.num{text-align:right;font-variant-numeric:tabular-nums}th.num{text-align:right}
+.bar{display:inline-block;height:8px;background:var(--ok);border-radius:4px;margin-right:8px;vertical-align:middle}
+.tag{font-size:11px;padding:1px 6px;border-radius:10px;border:1px solid var(--warn);color:var(--warn);margin-left:6px}
+code{font:12px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--mute)}
+.cell{display:inline-block;min-width:38px;text-align:center;border-radius:5px;padding:2px 0;font-weight:600;font-variant-numeric:tabular-nums}
+#chart{width:100%;height:360px;display:block}footer{margin-top:40px;color:var(--mute);font-size:12px}
+</style></head><body><div class="wrap">
+<h1>harness-bench leaderboard</h1>
+<div class="sub">Coding-agent harnesses on the 10 hardest <a href="https://github.com/harbor-framework/terminal-bench-2">Terminal-Bench 2.0</a> tasks, 3 runs each, via Harbor. Dataset commit <code id="commit"></code>.</div>
+<div id="banner"></div>
+<h2>Leaderboard</h2><div class="card"><table id="lb"></table></div>
+<h2>Passes per task (out of 3)</h2><div class="card"><table id="grid"></table></div>
+<h2>Score vs cost</h2><div class="card" style="padding:12px"><svg id="chart"></svg></div>
+<footer>Submit results by pull request: see the <a href="https://github.com/ajrrac/harness-bench#submit-results">README</a>.
+Tasks © the Terminal-Bench authors and contributors (Apache 2.0). Public tasks may be in model training data; compare runs from around the same date.</footer>
+</div>
+<script>
+const DATA = /*__DATA__*/null;
+const $ = id => document.getElementById(id), esc = s => String(s ?? "—").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fmtN = n => n == null ? "—" : n >= 1e6 ? (n/1e6).toFixed(1)+"M" : n >= 1e3 ? (n/1e3).toFixed(0)+"k" : String(n);
+const fmtT = s => s == null ? "—" : (s/3600).toFixed(1)+" h";
+const colors = ["#58a6ff","#f778ba","#3fb950","#d29922","#a371f7","#ff7b72","#39c5cf","#e3b341"];
+function render(d){
+  $("commit").textContent = d.dataset_commit.slice(0,12);
+  const E = d.entries;
+  if (E.some(e => e.example)) $("banner").innerHTML = '<div class="banner">⚠ EXAMPLE DATA: rows tagged EXAMPLE are made-up placeholders, not real runs. Delete results/EXAMPLE-*.json once real results land.</div>';
+  if (!E.length) { $("lb").innerHTML = "<tr><td>No results yet.</td></tr>"; return; }
+  $("lb").innerHTML = "<tr><th>#</th><th>Label</th><th>Agent</th><th>Model</th><th>Pass rate</th><th class=num>Cost</th><th class=num>Tokens in / out</th><th class=num>Time</th><th>Harness</th><th>Date</th></tr>" +
+    E.map((e,i) => `<tr><td>${i+1}</td><td><span style="color:${colors[i%8]}">●</span> ${esc(e.label)}${e.example?'<span class=tag>EXAMPLE</span>':''}</td><td>${esc(e.agent)}</td><td>${esc(e.model)}</td>
+    <td><span class=bar style="width:${Math.round(e.pass_rate*120)}px"></span>${(e.pass_rate*100).toFixed(1)}%</td>
+    <td class=num>${e.cost==null?"—":"$"+e.cost.toFixed(2)}</td><td class=num>${fmtN(e.tokens_in)} / ${fmtN(e.tokens_out)}</td>
+    <td class=num>${fmtT(e.wall_sec)}</td><td><code>${esc((e.harness_commit||"").slice(0,7)||null)}</code></td><td>${esc(e.date)}</td></tr>`).join("");
+  $("grid").innerHTML = "<tr><th>Task</th>" + E.map(e => `<th title="${esc(e.file)}">${esc(e.label)}</th>`).join("") + "</tr>" +
+    d.tasks.map(t => "<tr><td><code>"+esc(t)+"</code></td>" + E.map(e => {
+      const v = e.per_task[t]; if (!v) return "<td>—</td>";
+      const k = +v.split("/")[0], n = +v.split("/")[1] || 3, a = k/n;
+      return `<td><span class=cell style="background:rgba(63,185,80,${0.12+a*0.75});color:${a>.5?"#04140a":"var(--text)"}">${esc(v)}</span></td>`;
+    }).join("") + "</tr>").join("");
+  chart(E);
+}
+function chart(E){
+  const svg = $("chart"), W = svg.clientWidth || 1000, H = 360, m = {l:56,r:24,t:16,b:44};
+  const pts = E.filter(e => e.cost != null);
+  const xmax = Math.max(1, ...pts.map(e => e.cost)) * 1.15, ymax = Math.min(1, Math.max(.1, ...pts.map(e => e.pass_rate)) * 1.25);
+  const X = c => m.l + c/xmax*(W-m.l-m.r), Y = p => H-m.b - p/ymax*(H-m.t-m.b);
+  let s = `<rect width="${W}" height="${H}" fill="none"/>`;
+  for (let i=0;i<=5;i++){ const y=ymax*i/5, x=xmax*i/5;
+    s += `<line x1="${m.l}" x2="${W-m.r}" y1="${Y(y)}" y2="${Y(y)}" stroke="#30363d"/><text x="${m.l-8}" y="${Y(y)+4}" fill="#8b949e" font-size="11" text-anchor="end">${(y*100).toFixed(0)}%</text>`;
+    s += `<text x="${X(x)}" y="${H-m.b+18}" fill="#8b949e" font-size="11" text-anchor="middle">$${x.toFixed(0)}</text>`; }
+  s += `<text x="${(W+m.l)/2}" y="${H-6}" fill="#8b949e" font-size="12" text-anchor="middle">Total cost (USD, 30 trials)</text>`;
+  s += `<text transform="translate(14 ${(H-m.b+m.t)/2}) rotate(-90)" fill="#8b949e" font-size="12" text-anchor="middle">Pass rate</text>`;
+  E.forEach((e,i) => { if (e.cost == null) return; const c = colors[i%8];
+    s += `<circle cx="${X(e.cost)}" cy="${Y(e.pass_rate)}" r="7" fill="${c}" fill-opacity=".85" stroke="#0d1117" stroke-width="2"><title>${esc(e.label)}: ${(e.pass_rate*100).toFixed(1)}% at $${e.cost.toFixed(2)}</title></circle>
+    <text x="${X(e.cost)+(X(e.cost)>W*.7?-11:11)}" y="${Y(e.pass_rate)+4}" fill="${c}" font-size="12" text-anchor="${X(e.cost)>W*.7?"end":"start"}">${esc(e.label)}${e.example?" (example)":""}</text>`; });
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`); svg.innerHTML = s;
+}
+if (DATA) render(DATA); else fetch("data.json").then(r => r.json()).then(render);
+</script></body></html>

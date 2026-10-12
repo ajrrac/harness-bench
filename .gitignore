@@ -1,5 +1,6 @@
 jobs/
 .cache/
+_site/
 *.log
 .env
 .env.*
