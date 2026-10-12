@@ -1,6 +1,8 @@
 # harness-bench
 
-**Leaderboard:** https://ajrrac.github.io/harness-bench/
+## 🏆 Leaderboard: https://ajrrac.github.io/harness-bench/
+
+The page rebuilds automatically whenever a results PR is merged into `main`. To add your harness, see [Submit results](#submit-results).
 
 A small, fixed benchmark for comparing coding-agent harnesses. It runs the 10 hardest tasks from
 [Terminal-Bench 2.0](https://github.com/harbor-framework/terminal-bench-2), 3 times each, with

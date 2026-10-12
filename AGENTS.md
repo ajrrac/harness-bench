@@ -2,6 +2,15 @@
 
 Instructions for coding agents working in this repo.
 
+## Leaderboard
+- URL: https://ajrrac.github.io/harness-bench/
+- Built from `results/*.json` on `main` by `.github/workflows/pages.yml` (it runs on every push to `main`).
+- To submit: run `python3 scripts/validate_results.py` first (needs `pip install jsonschema`), then open a PR
+  that adds only your `results/<label>-<date>.json`. No `jobs/`, logs, or other files.
+- After the PR merges, check that the Deploy leaderboard workflow passed and your row appears on the page.
+- One-time owner step: GitHub Pages must be enabled in repo Settings → Pages → Source = **GitHub Actions**.
+  Agents cannot do this; if deploys fail with "Create Pages site failed", ask the repo owner.
+
 ## What this is
 A runner for 10 fixed Terminal-Bench 2.0 tasks (`tasks.txt`), pinned to dataset commit
 `2fd12b88aafdd04a52c298e3940bcb189f9766d6`, run with Harbor 0.24.0.
