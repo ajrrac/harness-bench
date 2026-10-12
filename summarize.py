@@ -54,7 +54,7 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("job", nargs="?")
     p.add_argument("--label"); p.add_argument("--model"); p.add_argument("--dataset-commit")
-    p.add_argument("--harness-commit"); p.add_argument("--compare", nargs="+")
+    p.add_argument("--harness-commit"); p.add_argument("--agent"); p.add_argument("--compare", nargs="+")
     a = p.parse_args()
     if a.compare:
         return compare(a.compare)
@@ -63,7 +63,7 @@ def main():
         hv = subprocess.run(["harbor", "--version"], capture_output=True, text=True).stdout.strip()
     except FileNotFoundError:
         hv = "unknown"
-    out = {"bench_version": BENCH_VERSION, "label": a.label, "model": a.model,
+    out = {"bench_version": BENCH_VERSION, "label": a.label, "agent": a.agent, "model": a.model,
            "harness_commit": a.harness_commit, "dataset_commit": a.dataset_commit,
            "harbor_version": hv, "date": datetime.date.today().isoformat(),
            "runs": runs, "summary": summarize(runs)}

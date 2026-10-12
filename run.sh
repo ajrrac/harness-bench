@@ -48,4 +48,4 @@ git -C "$DS" checkout -q "$COMMIT"
 [[ -z "$(git -C "$DS" status --porcelain)" ]] || { echo "dataset has local edits; refusing to run"; exit 1; }
 
 "${CMD[@]}"
-python3 summarize.py "jobs/$JOB" --label "$LABEL" --model "$MODEL" --dataset-commit "$COMMIT" ${HCOMMIT:+--harness-commit "$HCOMMIT"}
+python3 summarize.py "jobs/$JOB" --label "$LABEL" --agent "${IMPORT:-$AGENT}" --model "$MODEL" --dataset-commit "$COMMIT" ${HCOMMIT:+--harness-commit "$HCOMMIT"}
