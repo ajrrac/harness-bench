@@ -1,0 +1,12 @@
+harness-bench
+Copyright 2026 Abe Reyes
+
+This project runs tasks from Terminal-Bench 2.0:
+  https://github.com/harbor-framework/terminal-bench-2
+  pinned commit 2fd12b88aafdd04a52c298e3940bcb189f9766d6
+Terminal-Bench is licensed under the Apache License 2.0. All task content
+(instructions, environments, tests, solutions) is the work of the
+Terminal-Bench authors and contributors. No task files are copied into this
+repository; they are fetched at run time from the pinned commit.
+Some tasks fetch third-party software with its own license (for example,
+make-doom-for-mips builds Doom source code). Those licenses apply to that code.
