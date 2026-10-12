@@ -1,0 +1,13 @@
+# Terminal-Bench 2.0 hard subset (10 tasks). Do not edit without bumping the bench version.
+# dataset_repo=https://github.com/harbor-framework/terminal-bench-2
+# dataset_commit=2fd12b88aafdd04a52c298e3940bcb189f9766d6
+fix-ocaml-gc
+regex-chess
+write-compressor
+circuit-fibsqrt
+feal-linear-cryptanalysis
+sparql-university
+sam-cell-seg
+make-doom-for-mips
+make-mips-interpreter
+feal-differential-cryptanalysis

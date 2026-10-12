@@ -1,0 +1,8 @@
+jobs/
+.cache/
+*.log
+.env
+.env.*
+*.key
+*.pem
+__pycache__/
