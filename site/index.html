@@ -22,7 +22,7 @@ code{font:12px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--mute)}
 <div class="sub">Coding-agent harnesses on the 10 hardest <a href="https://github.com/harbor-framework/terminal-bench-2">Terminal-Bench 2.0</a> tasks, 3 runs each, via Harbor. Dataset commit <code id="commit"></code>.</div>
 <div id="banner"></div>
 <h2>Leaderboard</h2><div class="card"><table id="lb"></table></div>
-<h2>Passes per task (out of 3)</h2><div class="card"><table id="grid"></table></div>
+<h2>Passes per task</h2><div class="card"><table id="grid"></table></div>
 <h2>Score vs cost</h2><div class="card" style="padding:12px"><svg id="chart"></svg></div>
 <footer>Submit results by pull request: see the <a href="https://github.com/ajrrac/harness-bench#submit-results">README</a>.
 Tasks © the Terminal-Bench authors and contributors (Apache 2.0). Public tasks may be in model training data; compare runs from around the same date.</footer>
@@ -60,7 +60,7 @@ function chart(E){
   for (let i=0;i<=5;i++){ const y=ymax*i/5, x=xmax*i/5;
     s += `<line x1="${m.l}" x2="${W-m.r}" y1="${Y(y)}" y2="${Y(y)}" stroke="#30363d"/><text x="${m.l-8}" y="${Y(y)+4}" fill="#8b949e" font-size="11" text-anchor="end">${(y*100).toFixed(0)}%</text>`;
     s += `<text x="${X(x)}" y="${H-m.b+18}" fill="#8b949e" font-size="11" text-anchor="middle">$${x.toFixed(0)}</text>`; }
-  s += `<text x="${(W+m.l)/2}" y="${H-6}" fill="#8b949e" font-size="12" text-anchor="middle">Total cost (USD, 30 trials)</text>`;
+  s += `<text x="${(W+m.l)/2}" y="${H-6}" fill="#8b949e" font-size="12" text-anchor="middle">Total cost (USD)</text>`;
   s += `<text transform="translate(14 ${(H-m.b+m.t)/2}) rotate(-90)" fill="#8b949e" font-size="12" text-anchor="middle">Pass rate</text>`;
   E.forEach((e,i) => { if (e.cost == null) return; const c = colors[i%8];
     s += `<circle cx="${X(e.cost)}" cy="${Y(e.pass_rate)}" r="7" fill="${c}" fill-opacity=".85" stroke="#0d1117" stroke-width="2"><title>${esc(e.label)}: ${(e.pass_rate*100).toFixed(1)}% at $${e.cost.toFixed(2)}</title></circle>
