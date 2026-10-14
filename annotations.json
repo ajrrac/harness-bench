@@ -1,0 +1,10 @@
+{
+ "_about": "Footnotes shown on the leaderboard. They never change official scores or results/*.json.",
+ "notes": [
+  {
+   "file": "harness-codex-gpt-6.1-sol-2026-10-14.json",
+   "task_id": "make-mips-interpreter",
+   "text": "Codex make-mips-interpreter: 7/10 official, 8/10 with grader artifact corrected. The official miss came from the Terminal-Bench grader trusting a stale /tmp/frame.bmp and cutting program output off after 1 second; a $0 verifier-only re-grade of the same vm.js (no model calls) passed 3/3. The official score stays 7/10."
+  }
+ ]
+}

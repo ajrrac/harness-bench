@@ -23,6 +23,7 @@ code{font:12px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--mute)}
 <div id="banner"></div>
 <h2>Leaderboard</h2><div class="card"><table id="lb"></table></div>
 <h2>Passes per task</h2><div class="card"><table id="grid"></table></div>
+<div id="notes"></div>
 <h2>Score vs cost</h2><div class="card" style="padding:12px"><svg id="chart"></svg></div>
 <footer>Submit results by pull request: see the <a href="https://github.com/ajrrac/harness-bench#submit-results">README</a>.
 Tasks © the Terminal-Bench authors and contributors (Apache 2.0). Public tasks may be in model training data; compare runs from around the same date.</footer>
@@ -37,17 +38,19 @@ function render(d){
   $("commit").textContent = d.dataset_commit.slice(0,12);
   const E = d.entries;
   if (E.some(e => e.example)) $("banner").innerHTML = '<div class="banner">⚠ EXAMPLE DATA: rows tagged EXAMPLE are made-up placeholders, not real runs. Delete results/EXAMPLE-*.json once real results land.</div>';
+  if ((d.notes||[]).length) $("notes").innerHTML = "<h2>Notes</h2><div class=card><ol>" + d.notes.map(n => `<li id="note-${n.n}">${esc(n.text)}</li>`).join("") + "</ol></div>";
   if (!E.length) { $("lb").innerHTML = "<tr><td>No results yet.</td></tr>"; return; }
   $("lb").innerHTML = "<tr><th>#</th><th>Label</th><th>Agent</th><th>Model</th><th>Pass rate</th><th class=num>Cost</th><th class=num>Tokens in / out</th><th class=num>Time</th><th>Harness</th><th>Date</th></tr>" +
-    E.map((e,i) => `<tr><td>${i+1}</td><td><span style="color:${colors[i%8]}">●</span> ${esc(e.label)}${e.example?'<span class=tag>EXAMPLE</span>':''}</td><td>${esc(e.agent)}</td><td>${esc(e.model)}</td>
+    E.map((e,i) => `<tr><td>${i+1}</td><td><span style="color:${colors[i%8]}">●</span> ${esc(e.label)}${(e.notes||[]).map(n=>`<sup><a href="#note-${n.n}">${n.n}</a></sup>`).join("")}${e.example?'<span class=tag>EXAMPLE</span>':''}</td><td>${esc(e.agent)}</td><td>${esc(e.model)}</td>
     <td><span class=bar style="width:${Math.round(e.pass_rate*120)}px"></span>${(e.pass_rate*100).toFixed(1)}%</td>
     <td class=num>${e.cost==null?"—":"$"+e.cost.toFixed(2)}</td><td class=num>${fmtN(e.tokens_in)} / ${fmtN(e.tokens_out)}</td>
     <td class=num>${fmtT(e.wall_sec)}</td><td><code>${esc((e.harness_commit||"").slice(0,7)||null)}</code></td><td>${esc(e.date)}</td></tr>`).join("");
   $("grid").innerHTML = "<tr><th>Task</th>" + E.map(e => `<th title="${esc(e.file)}">${esc(e.label)}</th>`).join("") + "</tr>" +
     d.tasks.map(t => "<tr><td><code>"+esc(t)+"</code></td>" + E.map(e => {
       const v = e.per_task[t]; if (!v) return "<td>—</td>";
+      const fn = (e.notes||[]).filter(n => n.task_id === t).map(n => `<sup><a href="#note-${n.n}">${n.n}</a></sup>`).join("");
       const k = +v.split("/")[0], n = +v.split("/")[1] || 3, a = k/n;
-      return `<td><span class=cell style="background:rgba(63,185,80,${0.12+a*0.75});color:${a>.5?"#04140a":"var(--text)"}">${esc(v)}</span></td>`;
+      return `<td><span class=cell style="background:rgba(63,185,80,${0.12+a*0.75});color:${a>.5?"#04140a":"var(--text)"}">${esc(v)}</span>${fn}</td>`;
     }).join("") + "</tr>").join("");
   chart(E);
 }

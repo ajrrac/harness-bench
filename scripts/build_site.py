@@ -14,8 +14,14 @@ for f in sorted(glob.glob("results/*.json")):
         "date": d.get("date"), "harbor_version": d.get("harbor_version"), "pass_rate": s["pass_rate"],
         "per_task": s["per_task"], "cost": s.get("total_cost_usd"), "tokens_in": s.get("total_input_tokens"),
         "tokens_out": s.get("total_output_tokens"), "wall_sec": s.get("total_wall_sec")})
+notes = json.load(open("annotations.json"))["notes"] if os.path.exists("annotations.json") else []
+for i, n in enumerate(notes, 1):
+    n["n"] = i
+    for e in entries:
+        if e["file"] == n["file"]:
+            e.setdefault("notes", []).append(n)
 entries.sort(key=lambda e: (-e["pass_rate"], e["cost"] or 0))
-data = {"tasks": tasks, "dataset_commit": commit, "entries": entries}
+data = {"tasks": tasks, "dataset_commit": commit, "entries": entries, "notes": notes}
 json.dump(data, open("_site/data.json", "w"), indent=1)
 html = open("site/index.html").read().replace("/*__DATA__*/null", json.dumps(data).replace("</", "<\\/"))
 open("_site/index.html", "w").write(html)
