@@ -48,7 +48,7 @@ function render(d){
   $("grid").innerHTML = "<tr><th>Task</th>" + E.map(e => `<th title="${esc(e.file)}">${esc(e.label)}</th>`).join("") + "</tr>" +
     d.tasks.map(t => "<tr><td><code>"+esc(t)+"</code></td>" + E.map(e => {
       const v = e.per_task[t]; if (!v) return "<td>—</td>";
-      const fn = (e.notes||[]).filter(n => n.task_id === t).map(n => `<sup><a href="#note-${n.n}">${n.n}</a></sup>`).join("");
+      const fn = (e.notes||[]).filter(n => [].concat(n.task_id).includes(t)).map(n => `<sup><a href="#note-${n.n}">${n.n}</a></sup>`).join("");
       const k = +v.split("/")[0], n = +v.split("/")[1] || 3, a = k/n;
       return `<td><span class=cell style="background:rgba(63,185,80,${0.12+a*0.75});color:${a>.5?"#04140a":"var(--text)"}">${esc(v)}</span>${fn}</td>`;
     }).join("") + "</tr>").join("");
