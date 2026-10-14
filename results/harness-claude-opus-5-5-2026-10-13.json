@@ -1,0 +1,141 @@
+{
+  "bench_version": "1.0",
+  "label": "harness-claude-opus-5-5",
+  "agent": "bench.agents.local_harness_claude:LocalHarnessClaude",
+  "model": "anthropic/claude-opus-5-5",
+  "harness_commit": "75c3c9cca1dba2eb8ca1c35825cb2a7a6b9169a5",
+  "dataset_commit": "2fd12b88aafdd04a52c298e3940bcb189f9766d6",
+  "harbor_version": "0.24.0",
+  "date": "2026-10-13",
+  "runs": [
+    {
+      "task_id": "circuit-fibsqrt",
+      "trial": "circuit-fibsqrt__Q8wTSML",
+      "reward": 1.0,
+      "error": null,
+      "input_tokens": 710800,
+      "cache_tokens": 590301,
+      "output_tokens": 20812,
+      "cost_usd": 0.9189126000000001,
+      "wall_sec": 1696.007874
+    },
+    {
+      "task_id": "feal-differential-cryptanalysis",
+      "trial": "feal-differential-cryptanalysis__EVnrHj7",
+      "reward": 1.0,
+      "error": null,
+      "input_tokens": 199887,
+      "cache_tokens": 174650,
+      "output_tokens": 5117,
+      "cost_usd": 0.33911800000000003,
+      "wall_sec": 262.523854
+    },
+    {
+      "task_id": "feal-linear-cryptanalysis",
+      "trial": "feal-linear-cryptanalysis__AyQLLXy",
+      "reward": 1.0,
+      "error": null,
+      "input_tokens": 141663,
+      "cache_tokens": 111328,
+      "output_tokens": 7456,
+      "cost_usd": 0.41403360000000006,
+      "wall_sec": 679.272083
+    },
+    {
+      "task_id": "fix-ocaml-gc",
+      "trial": "fix-ocaml-gc__PcvSbKN",
+      "reward": 1.0,
+      "error": null,
+      "input_tokens": 752263,
+      "cache_tokens": 704440,
+      "output_tokens": 7493,
+      "cost_usd": 0.6732039999999999,
+      "wall_sec": 2356.97567
+    },
+    {
+      "task_id": "make-doom-for-mips",
+      "trial": "make-doom-for-mips__pKjrynY",
+      "reward": 0.0,
+      "error": "AgentTimeoutError",
+      "input_tokens": 3517637,
+      "cache_tokens": 3406880,
+      "output_tokens": 49114,
+      "cost_usd": 2.217371,
+      "wall_sec": 5041.138924
+    },
+    {
+      "task_id": "make-mips-interpreter",
+      "trial": "make-mips-interpreter__ra2JL3B",
+      "reward": 1.0,
+      "error": null,
+      "input_tokens": 1993343,
+      "cache_tokens": 1918660,
+      "output_tokens": 24581,
+      "cost_usd": 1.5138758000000003,
+      "wall_sec": 1026.245415
+    },
+    {
+      "task_id": "regex-chess",
+      "trial": "regex-chess__uMcfynK",
+      "reward": 1.0,
+      "error": null,
+      "input_tokens": 529972,
+      "cache_tokens": 459730,
+      "output_tokens": 19980,
+      "cost_usd": 1.0851008,
+      "wall_sec": 7023.557934
+    },
+    {
+      "task_id": "sam-cell-seg",
+      "trial": "sam-cell-seg__niAS4YA",
+      "reward": 0.0,
+      "error": null,
+      "input_tokens": 3323166,
+      "cache_tokens": 2819368,
+      "output_tokens": 75577,
+      "cost_usd": 4.7003582,
+      "wall_sec": 58236.487717
+    },
+    {
+      "task_id": "sparql-university",
+      "trial": "sparql-university__zxbirQ6",
+      "reward": 1.0,
+      "error": null,
+      "input_tokens": 255245,
+      "cache_tokens": 224189,
+      "output_tokens": 4430,
+      "cost_usd": 0.38182980000000005,
+      "wall_sec": 245.407344
+    },
+    {
+      "task_id": "write-compressor",
+      "trial": "write-compressor__HLCwmd7",
+      "reward": 1.0,
+      "error": null,
+      "input_tokens": 204760,
+      "cache_tokens": 166246,
+      "output_tokens": 8143,
+      "cost_usd": 0.5041732,
+      "wall_sec": 1781.536549
+    }
+  ],
+  "summary": {
+    "pass_rate": 0.8,
+    "per_task": {
+      "circuit-fibsqrt": "1/1",
+      "feal-differential-cryptanalysis": "1/1",
+      "feal-linear-cryptanalysis": "1/1",
+      "fix-ocaml-gc": "1/1",
+      "make-doom-for-mips": "0/1",
+      "make-mips-interpreter": "1/1",
+      "regex-chess": "1/1",
+      "sam-cell-seg": "0/1",
+      "sparql-university": "1/1",
+      "write-compressor": "1/1"
+    },
+    "total_input_tokens": 11628736,
+    "total_output_tokens": 222703,
+    "total_cost_usd": 12.748,
+    "total_wall_sec": 78349.2
+  }
+}
