@@ -1,13 +1,4 @@
 {
  "_about": "Footnotes shown on the leaderboard. They never change official scores or results/*.json.",
- "notes": [
-  {
-   "file": "harness-codex-gpt-6.1-sol-2026-10-14.json",
-   "task_id": [
-    "make-mips-interpreter",
-    "make-doom-for-mips"
-   ],
-   "text": "Codex: 7/10 official, 9/10 with grader artifact corrected (make-mips-interpreter and make-doom-for-mips). Both official misses came from the Terminal-Bench grader trusting a stale /tmp/frame.bmp and cutting DOOM's output off after ~1 second; $0 verifier-only re-grades of the same shipped files (no model calls) each passed 3/3. make-doom still officially timed out, so the official score stays 7/10."
-  }
- ]
+ "notes": []
 }
